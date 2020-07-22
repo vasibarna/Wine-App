@@ -17,10 +17,8 @@ class Vin(models.Model):
         return f'{self.nume} at {self.pret} lei with image {self.imagine} and category {self.categorie} has a rating of {self.nota}.'
 
 class Picture(models.Model):
-    vin_id = models.ForeignKey('wine_app.Vin',on_delete=models.DO_NOTHING)
-    name = models.CharField(max_length=50) 
+    vin = models.ForeignKey('wine_app.Vin',on_delete=models.DO_NOTHING)
     picture = models.ImageField(upload_to='images', default="null")
 
     def __str__(self):
-        return self.vin_id
-    
+        return self.vin

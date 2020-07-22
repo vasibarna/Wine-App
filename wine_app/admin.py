@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Vin, Categorie, Poza
+from .models import Vin, Categorie, Picture
 
 admin.site.register(Vin)
 admin.site.register(Categorie)
-admin.site.register(Poza)
+admin.site.register(Picture)

@@ -1,0 +1,49 @@
+[1mdiff --git a/db.sqlite3 b/db.sqlite3[m
+[1mindex 7ec9a2e..5cd9596 100644[m
+Binary files a/db.sqlite3 and b/db.sqlite3 differ
+[1mdiff --git a/wine_app/__pycache__/admin.cpython-38.pyc b/wine_app/__pycache__/admin.cpython-38.pyc[m
+[1mindex a53cc12..983b1e6 100644[m
+Binary files a/wine_app/__pycache__/admin.cpython-38.pyc and b/wine_app/__pycache__/admin.cpython-38.pyc differ
+[1mdiff --git a/wine_app/__pycache__/models.cpython-38.pyc b/wine_app/__pycache__/models.cpython-38.pyc[m
+[1mindex 7c09a8e..9bab5e4 100644[m
+Binary files a/wine_app/__pycache__/models.cpython-38.pyc and b/wine_app/__pycache__/models.cpython-38.pyc differ
+[1mdiff --git a/wine_app/__pycache__/urls.cpython-38.pyc b/wine_app/__pycache__/urls.cpython-38.pyc[m
+[1mindex 3c939d8..b0466df 100644[m
+Binary files a/wine_app/__pycache__/urls.cpython-38.pyc and b/wine_app/__pycache__/urls.cpython-38.pyc differ
+[1mdiff --git a/wine_app/admin.py b/wine_app/admin.py[m
+[1mindex 7fc3301..aa50c91 100644[m
+[1m--- a/wine_app/admin.py[m
+[1m+++ b/wine_app/admin.py[m
+[36m@@ -1,6 +1,6 @@[m
+ from django.contrib import admin[m
+[31m-from .models import Vin, Categorie, Poza[m
+[32m+[m[32mfrom .models import Vin, Categorie, Picture[m
+ [m
+ admin.site.register(Vin)[m
+ admin.site.register(Categorie)[m
+[31m-admin.site.register(Poza)[m
+\ No newline at end of file[m
+[32m+[m[32madmin.site.register(Picture)[m
+\ No newline at end of file[m
+[1mdiff --git a/wine_app/models.py b/wine_app/models.py[m
+[1mindex f8c9962..558f3c6 100644[m
+[1m--- a/wine_app/models.py[m
+[1m+++ b/wine_app/models.py[m
+[36m@@ -17,10 +17,8 @@[m [mclass Vin(models.Model):[m
+         return f'{self.nume} at {self.pret} lei with image {self.imagine} and category {self.categorie} has a rating of {self.nota}.'[m
+ [m
+ class Picture(models.Model):[m
+[31m-    vin_id = models.ForeignKey('wine_app.Vin',on_delete=models.DO_NOTHING)[m
+[31m-    name = models.CharField(max_length=50) [m
+[32m+[m[32m    vin = models.ForeignKey('wine_app.Vin',on_delete=models.DO_NOTHING)[m
+     picture = models.ImageField(upload_to='images', default="null")[m
+ [m
+     def __str__(self):[m
+[31m-        return self.vin_id[m
+[31m-    [m
+\ No newline at end of file[m
+[32m+[m[32m        return self.vin[m
+\ No newline at end of file[m
+[1mdiff --git a/wine_project/__pycache__/settings.cpython-38.pyc b/wine_project/__pycache__/settings.cpython-38.pyc[m
+[1mindex 92688f3..e898c1b 100644[m
+Binary files a/wine_project/__pycache__/settings.cpython-38.pyc and b/wine_project/__pycache__/settings.cpython-38.pyc differ
