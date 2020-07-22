@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container"> <!-- /.container -->
+	<div class="col-lg-15"> <!-- /.col-lg-15 -->
+		<div class="row"> <!-- /.row -->
+			{% for vin in vinuri %}
+			<div class="col-lg-4 col-md-6 mb-4"> <!-- /.col-lg-4 -->
+				<div class="card h-100"> <!-- /.card h-100 -->
+					<img class="zoom" src="{% static 'whitewines/' %}{{vin.imagine}}.jpg" alt="{{vin.name}}">
+					<div class="card-body"> <!-- /.card-body -->
+						<h4 class="card-title">
+							<a href="#">Vin alb {{ vin.nume }}</a>
+						</h4>
+						<h5 style="text-decoration:indigo; text-decoration: indigo;">{{ vin.pret }} lei</h5>
+						<p class="card-text">{{vin.descriere}}</p>
+						<p> {{vin.id}}</p>
+						
+					</div> <!-- /.card-body -->
+					
+					<div class="card-footer" style="background-color: #d6d6d6;"> <!-- /.card-footer -->
+						<form>
+							<div class="form-row align-items-center">
+								
+								<div class="col-auto my-0">
+									<button type="submit" class="btn btn-primary" style="background-color: #fffeed; color:black; padding-right: 4rem; padding-left: 5.5rem; border: #fffeed;">Add to Cart</button>
+								  </div>
+							  	<div class="col-auto my-0">
+										<select class="custom-select mr-sm-2" style="padding-left: 1rem;" id="inlineFormCustomSelect">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+										</select>
+							  	</div>
+							  
+							  
+							</div>
+						  </form>
+
+						  {% if vin.cantitate > 5 %}
+							<div style="color: green; padding-left: 6rem; padding-top: 0.5rem; font-size: 0.9rem;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+								Stoc Disponibil
+							</div>
+							{% elif vin.cantitate >= 3 %}
+								<div style="color: orange; padding-left: 6rem; padding-top: 0.5rem; font-size: 0.9rem;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+									Stoc Limitat
+								</div>
+								{% elif vin.cantitate == 1 %}
+								<div style="color: orangered; padding-left: 6rem; padding-top: 0.5rem; font-size: 0.9rem;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+									Ultimul produs
+								</div>
+							{% endif %}
+					</div> <!-- /.card-footer -->
+				</div> <!-- /.card h-100 -->
+			</div> <!-- /.col-lg-4 -->
+			{% endfor %} 
+		</div> <!-- /.row -->
+	</div> <!-- /.col-lg-15 -->
+</div> <!-- /.container -->
+{% endblock %}
+

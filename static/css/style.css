@@ -1,0 +1,52 @@
+.user_text {
+	background-color: #fffeed;
+	align-items: center;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+	margin-top: 0.5rem;
+}
+
+.card {
+	border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+  .card-footer {
+
+	background-color: #0e202e;
+	position: sticky;
+	margin-bottom: 0;
+
+
+  }
+
+  .container {
+	margin-top: 1rem;
+  }
+
+  .nav-item {
+	padding-left: 2rem;
+  }
+
+  .zoom {
+	width: 5rem;
+	height: auto;
+	overflow: hidden;
+  }
+  
+  .zoom {
+	transition: transform 0.2s;
+	width: 15rem;
+	height: auto;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	margin-left: auto;
+	margin-right: auto;
+	position: center;
+  }
+  
+  .zoom:hover {
+	transform: scale(1.25); 
+  }
