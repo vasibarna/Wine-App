@@ -9,7 +9,6 @@ class Vin(models.Model):
     nume = models.CharField(max_length=110)
     descriere = models.TextField(default="null")
     cantitate = models.IntegerField(default=1)
-    imagine = models.CharField(default="null",max_length=110)
     categorie = models.ForeignKey('wine_app.Categorie',on_delete=models.DO_NOTHING)
     pret = models.FloatField()
     nota = models.FloatField()
@@ -19,6 +18,3 @@ class Vin(models.Model):
 class Picture(models.Model):
     vin = models.ForeignKey('wine_app.Vin',on_delete=models.DO_NOTHING)
     picture = models.ImageField(upload_to='images', default="null")
-
-    def __str__(self):
-        return self.vin

@@ -27,8 +27,8 @@ def vinrose(request):
     vinuri_rose = Vin.objects.all()
     template_name = 'vin.html'
     context = {
+        'tip':'rose',
         'vinuri' : vinuri_rose,
-        'tip':'rose'
     }
     return render (request, template_name, context)
 
