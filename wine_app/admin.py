@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Vin, Categorie, Picture
+from .models import Wine, Category, PostImage
 
-admin.site.register(Vin)
-admin.site.register(Categorie)
-admin.site.register(Picture)
+admin.site.register(Wine)
+admin.site.register(Category)
+admin.site.register(PostImage)
+

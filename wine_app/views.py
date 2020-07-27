@@ -1,51 +1,52 @@
-from .models import Vin
+from .models import Wine
 from django.shortcuts import render
 from django.views.generic import ListView
 
-def bineativenit(request):
+def welcome(request):
     return render(request, 'base.html')
 
-def vinalb(request):
-    vinuri_albe = Vin.objects.all()
-    template_name = 'vin.html'
+def whitewine(request):
+    white_wines = Wine.objects.filter(wine_category__name="alb")
+    template_name = 'wine.html'
     context = {
-        'vinuri' : vinuri_albe,
-        'tip':'alb'
+        'wines' : white_wines,
+        'type':'alb'
     }
     return render (request, template_name, context)
 
-def vinrosu(request):
-    vinuri_rosii = Vin.objects.all()
-    template_name = 'vin.html'
+def redwine(request):
+    red_wines = Wine.objects.filter(wine_category__name="rosu")
+    template_name = 'wine.html'
     context = {
-        'vinuri' : vinuri_rosii,
-        'tip':'rosu'
+        'wines' : red_wines,
+        'type':'rosu'
     }
     return render (request, template_name, context)
 
-def vinrose(request):
-    vinuri_rose = Vin.objects.all()
-    template_name = 'vin.html'
+def rosewine(request):
+    rose_wines = Wine.objects.filter(wine_category__name="rose")
+    template_name = 'wine.html'
     context = {
-        'tip':'rose',
-        'vinuri' : vinuri_rose,
+        'type':'rose',
+        'wines' : rose_wines,
     }
     return render (request, template_name, context)
 
-def sampanie(request):
-    sampanii = Vin.objects.all()
-    template_name = 'vin.html'
+def champagne(request):
+    champagnes = Wine.objects.filter(wine_category__name="sampanie")
+    template_name = 'wine.html'
     context = {
-        'vinuri' : sampanii,
-        'tip':'sampanie'
+        'wines' : champagnes,
+        'type':'sampanie'
     }
     return render (request, template_name, context)
-def vinaniversar(request):
-    aniversar = Vin.objects.all()
-    template_name = 'vin.html'
+
+def anniversary(request):
+    anniversaries = Wine.objects.filter(wine_category__name="aniversar")
+    template_name = 'wine.html'
     context = {
-        'vinuri' : aniversar,
-        'tip':'aniversar'
+        'wines' : anniversaries,
+        'type':'aniversar'
     }
     return render (request, template_name, context)
 

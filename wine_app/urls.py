@@ -3,12 +3,12 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.bineativenit, name='bineativenit'),
-    path('vinalb/', views.vinalb, name = 'vinalb'),
-    path('vinrosu/', views.vinrosu, name='vinrosu'),
-    path('vinrose/', views.vinrose, name='vinrose'),
-    path('sampanie/', views.sampanie, name='sampanie'),
-    path('vinaniversar/', views.vinaniversar, name='vinaniversar'),
+    path('', views.welcome, name='welcome'),
+    path('whitewine/', views.whitewine, name = 'whitewine'),
+    path('redwine/', views.redwine, name='redwine'),
+    path('rosewine/', views.rosewine, name='rosewine'),
+    path('champagne/', views.champagne, name='champagne'),
+    path('anniversary/', views.anniversary, name='anniversary'),
     path('upload/', views.image_upload_view),
 
 ]

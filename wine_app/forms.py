@@ -1,9 +1,9 @@
 from django import forms
-from .models import Picture
+from .models import PostImage
 
 
 class ImageForm(forms.ModelForm):
     """Form for the image model"""
     class Meta:
-        model = Picture
+        model = PostImage
         fields = ('nume', 'image')
