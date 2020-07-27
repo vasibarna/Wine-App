@@ -32,17 +32,32 @@ class PostImage(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        for image in [self.image1, self.image2, self.image3]:
-            img = Image.open(self.image.path)
-            width, height = img.size
-            new_height = 900
-            new_width  = new_height * width / height
-            output_size = (new_width, new_height)
-            img.thumbnail(output_size)
-            img.save(self.image.path)
+        img = Image.open(self.image1.path)
+        width, height = img.size
+        new_height = 900
+        new_width  = new_height * width / height
+        output_size = (new_width, new_height)
+        img.thumbnail(output_size)
+        img.save(self.image1.path)
+
+        img = Image.open(self.image2.path)
+        width, height = img.size
+        new_height = 900
+        new_width  = new_height * width / height
+        output_size = (new_width, new_height)
+        img.thumbnail(output_size)
+        img.save(self.image2.path)
+
+        img = Image.open(self.image3.path)
+        width, height = img.size
+        new_height = 900
+        new_width  = new_height * width / height
+        output_size = (new_width, new_height)
+        img.thumbnail(output_size)
+        img.save(self.image3.path)
 
     def __str__(self):
-        return f'Pictures for: <<{self.name}>>'
+        return f'Pictures for: <<{self.wine}>>'
 
 
 
