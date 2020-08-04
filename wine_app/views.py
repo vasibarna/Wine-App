@@ -1,6 +1,12 @@
-from .models import Wine
-from django.shortcuts import render
-from django.views.generic import ListView
+
+from django.shortcuts import render, redirect
+from .models import Wine, PostImage
+from django.contrib.auth.decorators import login_required
+from cart.cart import Cart
+from django.views.generic import ListView, DetailView
+from django.http import HttpResponseRedirect
+from django.db.models import Sum
+
 
 def welcome(request):
     return render(request, 'base.html')
@@ -10,19 +16,25 @@ def whitewine(request):
     template_name = 'wine.html'
     context = {
         'wines' : white_wines,
-        'type':'alb'
+        'type':'alb',
     }
+    
     return render (request, template_name, context)
 
 def redwine(request):
     red_wines = Wine.objects.filter(wine_category__name="rosu")
+    images = []
+    for wine in red_wines:
+        image = list(PostImage.objects.filter(wine__id=wine.id).values())[0]
+        images.append(image)
     template_name = 'wine.html'
     context = {
         'wines' : red_wines,
-        'type':'rosu'
+        'type':'rosu',
+        'images':images
     }
+    
     return render (request, template_name, context)
-
 def rosewine(request):
     rose_wines = Wine.objects.filter(wine_category__name="rose")
     template_name = 'wine.html'
@@ -62,3 +74,58 @@ def image_upload_view(request):
     else:
         form = ImageForm()
     return render(request, 'upload_image.html', {'form': form})
+
+
+class WineDetailView(DetailView):
+    model = Wine
+    template_name = 'wine_detail.html'
+    context_object_name = 'wine'
+    
+
+
+def shopping_cart(request):
+    return render(request, 'shopping_cart.html')
+
+@login_required(login_url="/users/login")
+def cart_add(request, id):
+    cart = Cart(request)
+    product = Wine.objects.get(id=id)
+    cart.add(product=product)
+    return HttpResponseRedirect("/shopping_cart") 
+
+
+
+@login_required(login_url="/users/login")
+def item_clear(request, id):
+    cart = Cart(request)
+    product = Wine.objects.get(id=id)
+    cart.remove(product)
+    return redirect("/shopping_cart")
+
+
+@login_required(login_url="/users/login")
+def item_increment(request, id):
+    cart = Cart(request)
+    product = Wine.objects.get(id=id)
+    cart.add(product=product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/users/login")
+def item_decrement(request, id):
+    cart = Cart(request)
+    product = Wine.objects.get(id=id)
+    cart.decrement(product=product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/users/login")
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect("shopping_cart")
+
+
+@login_required(login_url="/users/login")
+def cart_detail(request):
+    return render(request, 'cart/cart_detail.html')

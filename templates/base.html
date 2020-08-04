@@ -1,4 +1,5 @@
 {% load static %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,6 +9,9 @@
     <!-- Bootstrap CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/wine_detail.css' %}" rel="stylesheet">
+    <link href="{% static 'css/shopping_cart.css' %}" rel="stylesheet">
+   
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -76,10 +80,12 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/shopping_cart">
                         <svg class="bi bi-cart2" width="1.3em" height="1.3em" viewBox="0 2 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
                           </svg> Cart
+
+
                     </a>
                 </li>
                 <li class="nav-item">
@@ -146,11 +152,12 @@
 
 </body>
 
-    
+
+{% block footer %}
 
 </div>
 
-        <div class="card-footer text-muted text-center">
+        <div class="card-footer text-muted text-center" style="background-color: #0e202e;">
 
             <a href="/">
                 <img src="{% static 'logo.jpg' %}" style="width:100px;height:auto;" alt="logo.jpg">
@@ -160,14 +167,10 @@
             <a class="card-footer text-muted" href="https://www.linkedin.com/in/vasile-barna-96744474">LinkedIn</a>
             <a class="card-footer text-muted" href="https://github.com/vasibarna">GitHub</a><br><br>
              © Vasile Barna 2020. All rights reserved.
-            </div>
+        </div>
 </div>
         
-
-
-
-
-
+{% endblock %}
 
 </html>
 

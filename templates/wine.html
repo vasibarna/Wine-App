@@ -8,14 +8,23 @@
 			{% for wine in wines %}
 			<div class="col-lg-4 col-md-6 mb-4"> <!-- /.col-lg-4 -->
 				<div class="card h-100"> <!-- /.card h-100 -->
-					
+					{% with wine.postimage_set.all|first as wine_image %}
+						<img class="zoom"  src="http://127.0.0.1:8000/media/{{ wine_image.image }}"  alt="{{wine.name}}">
+					{% endwith %} 
 					<div class="card-body"> <!-- /.card-body -->
 						<h4 class="card-title">
-							<a href="#">Vin alb {{ wine.name }}</a>
+							<a href="{% url 'wine_detail' wine.pk %}"> {{wine.name}} </a>
 						</h4>
 						<h5 style="text-decoration:indigo; text-decoration: indigo;">{{ wine.price }} lei</h5>
-						<p class="card-text">{{wine.description}}</p>
-						
+						<p class="card-text">
+							{% if wine.description|length > 100 %}
+								<p>{{wine.description|slice:100}} 
+									<a href="{% url 'wine_detail' wine.pk %}">  ... mai multe detalii </a>
+								</p>
+							{% else %}
+								<p>{{wine.description}} </p>
+							{% endif %}
+							
 					</div> <!-- /.card-body -->
 					
 					<div class="card-footer" style="background-color: #d6d6d6;"> <!-- /.card-footer -->
@@ -23,14 +32,26 @@
 							<div class="form-row align-items-center">
 								
 								<div class="col-auto my-0">
-									<button type="submit" class="btn btn-primary" style="background-color: #fffeed; color:black; padding-right: 4rem; padding-left: 5.5rem; border: #fffeed;">Add to Cart</button>
-								  </div>
+									
+
+									<a href="{% url 'cart_add' wine.id %}" class="btn btn-info" role="button" style="background-color: #fffeed; color:black; padding-right: 6rem; padding-left: 6rem; border: #fffeed;">
+										<strong>
+											Adauga in Cos
+										</strong>
+									</a>
+
+									
+
+								
+
+
+
+
+
+
+								</div>
 							  	<div class="col-auto my-0">
-										<select class="custom-select mr-sm-2" style="padding-left: 1rem;" id="inlineFormCustomSelect">
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-										</select>
+										
 							  	</div>
 							  
 							  

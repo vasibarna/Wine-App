@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="container">
+
+<hr>
+
+	
+<div class="card">
+	<div class="row">
+		<aside class="col-sm-5 border-right">
+<article class="gallery-wrap"> 
+<div class="img-big-wrap">
+  <div> 
+    <a href="#">
+    {% with wine.postimage_set.all|first as wine_image %}
+						<img src="http://127.0.0.1:8000/media/{{ wine_image.image }}"  alt="{{wine.name}}">
+		{% endwith %} 
+
+    </a>
+</div>
+
+
+</div> <!-- slider-product.// -->
+<div class="img-small-wrap">
+  <div class="item-gallery"> 
+
+    {% with wine.postimage_set.all.1 as wine_image %}
+						<img src="http://127.0.0.1:8000/media/{{ wine_image.image }}"  alt="{{wine.name}}">
+		{% endwith %} 
+
+  </div>
+  <div class="item-gallery"> 
+    {% with wine.postimage_set.all.2 as wine_image %}
+						<img src="http://127.0.0.1:8000/media/{{ wine_image.image }}"  alt="{{wine.name}}">
+		{% endwith %} 
+  </div>
+  <div class="item-gallery"> <img src="https://s9.postimg.org/tupxkvfj3/image.jpg"> </div>
+  <div class="item-gallery"> <img src="https://s9.postimg.org/tupxkvfj3/image.jpg"> </div>
+</div> <!-- slider-nav.// -->
+</article> <!-- gallery-wrap .end// -->
+		</aside>
+		<aside class="col-sm-7">
+<article class="card-body p-7">
+	<h3 class="title mb-3">{{wine.name}}</h3>
+
+<p class="price-detail-wrap"> 
+	<span class="price h3 text-warning"> 
+		<h5 style="text-decoration:indigo; text-decoration: indigo;">{{ wine.price }} lei</h5>
+	</span> 
+</p> <!-- price-detail-wrap .// -->
+<dl class="item-property">
+  <dt>Descriere</dt>
+  <dd><p>{{wine.description}} </p></dd>
+</dl>
+
+<dl class="param param-feature">
+  <dd>Culoare: {{color}}</dd>
+  <dd>Marime: 0.75l</dd>
+  <dd>Nota: {{wine.note}}</dd>  
+</dl>  <!-- item-property-hor .// -->
+
+
+<hr>
+	<div class="row">
+		</div> <!-- col.// -->
+		<div class="col-sm-8" style="margin-left: 0; padding-left: 0;">
+
+            <div class="card-footer" style="background-color: #d6d6d6;"> <!-- /.card-footer -->
+                <form>
+                    <div class="form-row align-items-center">
+                        
+                        <div class="col-auto my-0">
+                          <button type="submit" class="btn btn-primary" style="background-color: #fffeed; color:black; padding-right: 4rem; padding-left: 5.5rem; border: #fffeed;">
+										
+                            <a href="{% url 'cart_add' wine.id %}">Adauga in Cos</a>
+                          
+                          </button>
+                          </div>
+                          <div class="col-auto my-0">
+                                <select class="custom-select mr-sm-2" style="padding-left: 1rem;" id="inlineFormCustomSelect">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                          </div>
+                      
+                      
+                    </div>
+                  </form>
+
+                  {% if wine.quantity > 5 %}
+                    <div style="color: green; padding-left: 6rem; padding-top: 0.5rem; font-size: 0.9rem;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+                        Stoc Disponibil
+                    </div>
+                    {% elif wine.quantity >= 3 %}
+                        <div style="color: orange; padding-left: 6rem; padding-top: 0.5rem; font-size: 0.9rem;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+                            Stoc Limitat
+                        </div>
+                        {% elif wine.quantity == 1 %}
+                        <div style="color: orangered; padding-left: 6rem; padding-top: 0.5rem; font-size: 0.9rem;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+                            Ultimul produs
+                        </div>
+                    {% endif %}
+            </div> <!-- /.card-footer -->
+          </form>
+	</div> <!-- row.// -->
+</div> <!-- card.// -->
+
+
+</div>
+<!--container.//-->
+
+
+{% endblock %}
