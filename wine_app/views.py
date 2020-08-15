@@ -23,18 +23,14 @@ def whitewine(request):
 
 def redwine(request):
     red_wines = Wine.objects.filter(wine_category__name="rosu")
-    images = []
-    for wine in red_wines:
-        image = list(PostImage.objects.filter(wine__id=wine.id).values())[0]
-        images.append(image)
     template_name = 'wine.html'
     context = {
         'wines' : red_wines,
         'type':'rosu',
-        'images':images
     }
-    
     return render (request, template_name, context)
+
+    
 def rosewine(request):
     rose_wines = Wine.objects.filter(wine_category__name="rose")
     template_name = 'wine.html'
@@ -80,11 +76,26 @@ class WineDetailView(DetailView):
     model = Wine
     template_name = 'wine_detail.html'
     context_object_name = 'wine'
-    
 
 
 def shopping_cart(request):
-    return render(request, 'shopping_cart.html')
+    a = Cart(request)
+    total = 0
+    for key,value in a.cart.items():
+        total += float(value['price']) * value['quantity']
+    return render(request, 'shopping_cart.html', {'total': total})
+
+
+def abc(request):
+    return render(request, 'abc.html')
+
+
+def shopping_cart_contact(request):
+    a = Cart(request)
+    total = 0
+    for key,value in a.cart.items():
+        total += float(value['price']) * value['quantity']
+    return render(request, 'shopping_cart_contact.html', {'total': total})
 
 @login_required(login_url="/users/login")
 def cart_add(request, id):

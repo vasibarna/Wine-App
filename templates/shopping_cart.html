@@ -1,136 +1,97 @@
 {% extends 'base.html' %}
 {% load cart_tag %}
 {% load static %}
-
-
-
 {% block content %}
-
-
 <script src="https://use.fontawesome.com/c560c025cf.js"></script>
 <div class="container">
-   <div class="card shopping-cart">
-            <div class="card-header text-muted" style="background-color: #fffeed;">
-              <svg class="bi bi-cart2" width="1.3em" height="1.3em" viewBox="0 2 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
-              </svg> 
-
-              {% if request.session.cart|length == 0 %}
-              
-                Cosul dumneavoastra este gol. Adaugati produse in cos!
-
-              {% elif request.session.cart|length == 1 %}
-
-                Cosul dumneavoastra contine {{request.session.cart|length}} singur produs!
-              
-              {% else %}
-
-                Cosul dumneavoastra contine {{request.session.cart|length}} produse!
-
-              {% endif %}
-                
-                <div class="clearfix"></div>
-            </div>
-            <div class="card-body">
-              {% for key,value in request.session.cart.items %}
-                    <!-- PRODUCT -->
-                    <div class="row">
-                        <div class="col-10 col-sm-10 col-md-2 text-center">
-                                <img class="img-responsive" src="{{value.image}}" alt="prewiew" width="100" height=auto>
-                        </div>
-                        <div class="col-10 text-sm-center col-sm-10 text-md-left col-md-4">
-                            <h4 class="product-name" ><strong>
-                              
-                               {{value.name}}
-
-                            
-                            
-                            </strong></h4>
-                        </div>
-                        <div class="col-12 col-sm-12 text-sm-center col-md-6 text-md-right row">
-                            <div class="col-3 col-sm-6 col-md-3 text-md-right my-4" >
-                                <h6><strong>{{value.price}} lei <span class="text-muted"></span></strong></h6>
-                            </div>
-                            <div class="col-3 col-sm-6 col-md-3 my-4">
-                                <div>
-                                    <h6><strong>{{value.quantity}} pcs <span class="text-muted"></span></strong></h6>
-                              </div>
-                            </div>
-                            
-
-                            <div class="col-auto my-4">
-                                <h6><strong>{{ value.price|multiply:value.quantity }} lei <span class="text-muted"></span></strong></h6>
-                                
-                            </div>
-
-
-                            <div class="col-auto my-3">
-                                <a href="{% url 'item_clear' value.product_id %}" class="btn btn-info" role="button" style="background-color: #fffeed; border: #fffeed;">
-                                    <button href="{% url 'item_clear' value.product_id %}" type="button" class="btn btn-outline-danger btn-xs">
-                                        
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        
-    
-                                    </button>
-                                </a>
-                            </div>
-
-                            
-
-                           
-                        </div>
-                    </div>
-                    <hr>
-                    
-                    {% endfor %}
-                    <!-- END PRODUCT -->
-                    
-                <div class="pull-right">
-                    <a href="" class="btn btn-outline-success pull-right">Catre Plata</a>
-                </div>
-                <div class="pull-left">
-       
-                        <a href="{% url 'cart_clear' %}" class="btn btn-outline-danger pull-left ">Goleste cosul </a>
-               
-
-                </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="card-header text-muted" style="background-color: #fffeed; border-top: 1px solid rgba(0,0,0,.125);">
-              
-                <div class="pull-right" style="margin: 10px">
-                    <div class="pull-right" style="margin: 0">
-                        Pret total: 
-                        <h4>
-                            {% for key,value in request.session.cart.items %}
-                                {{ value.price|multiply:value.quantity }}
-                            {% endfor %}
-                        
-                        </h4>
-                    </div>
-                </div>
-            </div>
-        </div>
+	<div class="card shopping-cart">
+		<div class="card-header text-muted" style="background-color: #fffeed;">
+			<svg class="bi bi-cart2" width="1.3em" height="1.3em" viewBox="0 2 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				<path fill-rule="evenodd" d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+			</svg>
+			{% if request.session.cart|length == 0 %}
+			Cosul dumneavoastra este gol. Adaugati produse in cos!
+			{% elif request.session.cart|length == 1 %}
+			Cosul dumneavoastra contine {{request.session.cart|length}} singur produs!
+			{% else %}
+			Cosul dumneavoastra contine {{request.session.cart|length}} produse!
+			{% endif %}
+			<div class="clearfix"></div>
+		</div>
+		<div class="card-body">
+			{% for key,value in request.session.cart.items %}
+			<!-- PRODUCT -->
+			<div class="row">
+				<div class="col-10 col-sm-10 col-md-2 text-center">
+					<img class="img-responsive" src="{{value.image}}" alt="prewiew" width="100" height=auto>
+				</div>
+				<div class="col-10 text-sm-center col-sm-10 text-md-left col-md-4 my-4">
+					<h5 class="product-name" ><strong>
+						{{value.name}}
+						</strong>
+					</h5>
+				</div>
+				<div class="col-12 col-sm-12 text-sm-center col-md-6 text-md-left row">
+					<div class="col-3 col-sm-6 col-md-3 text-md-left my-4" >
+						<h6><strong>{{value.price}} lei <span class="text-muted"></span></strong></h6>
+					</div>
+					<div class="col-3 col-sm-6 col-md-3 my-4 text-md-left ">
+						<div>
+							<h6><strong>{{value.quantity}} buc <span class="text-muted"></span></strong></h6>
+						</div>
+					</div>
+					<div class="col-auto my-4">
+						<h6><strong>{{ value.price|multiply:value.quantity }} lei <span class="text-muted"></span></strong></h6>
+					</div>
+					<div class="col-auto my-3 text-md-left">
+						<a href="{% url 'item_clear' value.product_id %}" class="btn btn-info" role="button" style="background-color: #fffeed; border: #fffeed;">
+						<button href="{% url 'item_clear' value.product_id %}" type="button" class="btn btn-outline-danger btn-xs">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+						</button>
+						</a>
+					</div>
+				</div>
+			</div>
+			<hr>
+			{% endfor %}
+			<!-- END PRODUCT -->
+			{% block plata-contact %}
+			<div class="pull-right">
+				<a href="/shopping_cart_contact" class="btn btn-outline-success pull-right">Pasul Urmator</a>
+			</div>
+			<div class="pull-left">
+				<a href="{% url 'cart_clear' %}" class="btn btn-outline-danger pull-left ">Goleste cosul </a>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="card-header text-muted" style="background-color: #fffeed; border-top: 1px solid rgba(0,0,0,.125);">
+			<div class="pull-right" style="margin: 10px">
+				<div class="pull-right" style="margin: 0">
+					Pret total: 
+					<h4>
+						{{total}} lei
+					</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
 </div>
-
 {% endblock %}
 
 
-{% block footer %}
-
-</div>
-
-        <div class="card-footer text-muted text-center" style="background-color: #0e202e; position: absolute; width: 100%; bottom: 0;">
-
-            <a href="/">
-                <img src="{% static 'logo.jpg' %}" style="width:100px;height:auto;" alt="logo.jpg">
-            </a>
-            <a class="card-footer text-muted" style="padding-left:5px" href="#">Contact</a>
-            <a class="card-footer text-muted" href="https://www.facebook.com/vasi.barna.5">Facebook</a>
-            <a class="card-footer text-muted" href="https://www.linkedin.com/in/vasile-barna-96744474">LinkedIn</a>
-            <a class="card-footer text-muted" href="https://github.com/vasibarna">GitHub</a><br><br>
-             © Vasile Barna 2020. All rights reserved.
-        </div>
-</div>
-        
-{% endblock %}
+{% block footer_custom %}
+	<footer id="footer">
+	<div class="card-footer text-muted text-center" style="position: fixed;
+	bottom: 0;">
+	<a href="/">
+	<img src="{% static 'logo.jpg' %}" style="width:100px;height:auto;" alt="logo.jpg">
+	</a>
+	<a class="text-muted" style="padding-left:3rem" href="#">Contact</a>
+	<a class="text-muted" style="padding-left:3rem" href="https://www.facebook.com/vasi.barna.5">Facebook</a>
+	<a class="text-muted" style="padding-left:3rem" href="https://www.linkedin.com/in/vasile-barna-96744474">LinkedIn</a>
+	<a class="text-muted" style="padding-left:3rem" href="https://github.com/vasibarna">GitHub</a><br><br>
+	© Vasile Barna 2020. All rights reserved.
+	</div>
+	</footer>
+	{% endblock %}

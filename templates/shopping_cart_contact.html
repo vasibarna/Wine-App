@@ -1,0 +1,82 @@
+{% extends 'shopping_cart.html' %}
+{% block plata-contact %}
+{% if request.session.cart|length == 0 %}
+{% else %}
+<div class="clearfix">
+		<div class="card-header text-muted text-right" style="background-color: #fffeed; border-top: 2px solid rgba(0,0,0,.125); border-bottom: 2px solid rgba(0,0,0,.125); ">
+					
+					<h4 style="color: #00ba44;">
+						Total: {{total}} lei
+					</h4>
+		</div>
+</div>
+
+<br>
+<br>
+<h4 class="product-name" style="text-align: center;"><strong>
+	Adresa de livrare a produselor
+	</strong>
+</h4>
+<br>
+<br>
+<form>
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="validationDefault01">Nume</label>
+			<input type="text" class="form-control" id="validationDefault01" placeholder="Nume" value="" required>
+		</div>
+		<div class="col-md-4 mb-3">
+			<label for="validationDefault02">Prenume</label>
+			<input type="text" class="form-control" id="validationDefault02" placeholder="Prenume" value="" required>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-3 mb-3">
+			<label for="validationDefault03">Oras</label>
+			<input type="text" class="form-control" id="validationDefault03" placeholder="Oras" required>
+		</div>
+		<div class="col-md-3 mb-3">
+			<label for="validationDefault03">Strada</label>
+			<input type="text" class="form-control" id="validationDefault03" placeholder="Strada" required>
+		</div>
+		<div class="col-md-3 mb-3">
+			<label for="validationDefault04">Judet</label>
+			<input type="text" class="form-control" id="validationDefault04" placeholder="Judet" required>
+		</div>
+		<div class="col-md-3 mb-3">
+			<label for="validationDefault05">Cod Postal</label>
+			<input type="text" class="form-control" id="validationDefault05" placeholder="Cod Postal" required>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+			<label class="form-check-label" for="invalidCheck2">
+			Sunt de acord cu termenii si conditiile
+			</label>
+		</div>
+	</div>
+	<div class="pull-right">
+		<!-- <a href="/shopping_cart_contact" class="btn btn-outline-success pull-right">Pasul Urmator</a> -->
+	</div>
+	<div class="pull-right">
+		<!-- <a href="{% url 'cart_clear' %}" class="btn btn-outline-danger pull-left ">Goleste cosul </a> -->
+	</div>
+	</div>
+	<div class="clearfix"></div>
+	<button class="btn btn-success" type="submit">Trimite Comanda</button>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	
+</form>
+</div>
+{% endif %}
+{% endblock %}
+</div>
+</div>
