@@ -9,11 +9,11 @@
 				<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-							<img src="http://127.0.0.1:8000/media/{{ wine.image }}" style="width: 24rem; height: auto; align-items: center;" alt="{{wine.name}}">
+							<img src="http://127.0.0.1:8000/media/{{ wine.image }}" style="height:500px; width: auto; padding-left: 7rem;" alt="{{wine.name}}">
 						</div>
 						{% for wine in wine.postimage_set.all %}
 						<div class="carousel-item">
-							<img src="http://127.0.0.1:8000/media/{{ wine.image }}" style="width: 24rem; height: auto;" alt="{{wine.name}}">
+							<img src="http://127.0.0.1:8000/media/{{ wine.image }}" style="height:500px; width: auto; padding-left: 7rem;" alt="{{wine.name}}">
 						</div>
 						{% endfor %} 
 					</div>
@@ -29,23 +29,46 @@
 			</aside>
 			<aside class="col-sm-7">
 			<article class="card-body p-7">
-			<h3 class="title mb-3">{{wine.name}}</h3>
-			<p class="price-detail-wrap">
-				<span class="price h3 text-warning">
-			<h5 style="text-decoration:indigo; text-decoration: indigo;">{{ wine.price }} lei</h5>
-			</span> 
-			</p> <!-- price-detail-wrap .// -->
+			<h3 class="title mb-3" style="color:darkred">{{wine.name}}</h3>
+		
+			
 			<dl class="item-property">
-				<dt>Descriere</dt>
+				<dt>
+					<strong>Descriere</strong>
+				</dt>
+			
 				<dd>
-					<p>{{wine.description}} </p>
+					<p style="text-align: justify;">{{wine.description}} </p>
 				</dd>
 			</dl>
 			<dl class="param param-feature">
-				<dd>Culoare: {{color}}</dd>
-				<dd>Marime: 0.75l</dd>
-				<dd>Nota: {{wine.note}}</dd>
+				<dd>
+					Continut de zahar
+					<div style="color:darkred">{{wine.sugar_content}}</div>
+				</dd>
+				<dd>
+					Marime
+					<div style="color:darkred">0.75 l</div>
+				</dd>
+				<dd>
+					An
+					<div style="color:darkred">{{wine.year}}</div>
+				</dd>
+				<dd>
+					Rating
+					<div style="color:darkred">{{wine.note}}</div>
+				</dd>
+
+				
 			</dl>
+			<p class="price-detail-wrap">
+				<span class="price h3 text-warning">
+			<h4 style="color: #00ba44; height: 3rem; padding-top: 1rem; text-underline-position: below;"> 
+				<strong>Pret {{ wine.price }} lei </strong>
+				
+				</h4>
+			</span> 
+			</p> <!-- price-detail-wrap .// -->
 			<!-- item-property-hor .// -->
 			<hr>
 			<div class="row">

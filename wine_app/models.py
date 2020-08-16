@@ -12,11 +12,13 @@ class Category(models.Model):
 
 class Wine(models.Model):
     name = models.CharField(max_length=110)
-    description = models.TextField(default="null")
-    quantity = models.IntegerField(default=1)
+    description = models.TextField(default="Vin recomandat")
+    sugar_content = models.CharField(max_length=20, default="Demisec")
+    year = models.IntegerField(default=2015)
     price = models.FloatField()
     note = models.FloatField()
     image = models.ImageField(upload_to='images', default="null")
+    quantity = models.IntegerField(default=10)
     wine_category = models.ForeignKey('wine_app.Category',on_delete=models.CASCADE)
     
     def __str__(self):
@@ -31,11 +33,13 @@ class PostImage(models.Model):
         super().save(*args, **kwargs)
         img = Image.open(self.image.path)
         width, height = img.size
+        print(width, height)
         new_height = 900
-        new_width  = new_height * width / height
+        new_width  = int(new_height * width / height)
         output_size = (new_width, new_height)
-        img.thumbnail(output_size)
-        img.save(self.image.path)
+        a = img.resize(output_size)
+        a.save(self.image.path)
+        print(new_width, new_height)
 
     def __str__(self):
         return f'Pictures for: <<{self.wine}>>'

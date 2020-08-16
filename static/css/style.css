@@ -32,19 +32,15 @@
   }
 
   .zoom {
-	width: 5rem;
-	height: auto;
+	height: 12rem;
+	width: auto;
 	overflow: hidden;
   }
   
   .zoom {
 	transition: transform 0.2s;
-	width: 15rem;
-	height: auto;
 	margin-top: 2rem;
 	margin-bottom: 2rem;
-	margin-left: auto;
-	margin-right: auto;
 	position: center;
   }
   

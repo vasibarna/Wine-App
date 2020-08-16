@@ -11,23 +11,36 @@
 			{% for wine in wines %}
 			<div class="col-lg-4 col-md-6 mb-4">
 				<!-- /.col-lg-4 -->
-				<div class="card h-100">
+				<div class="card h-100 ">
 					<!-- /.card h-100 -->
-					<img class="zoom"  src="http://127.0.0.1:8000/media/{{ wine.image }}"  alt="{{wine.name}}">
+					<a href="{% url 'wine_detail' wine.pk %}">  
+						<img class="zoom" style="padding-left: 7rem;" src="http://127.0.0.1:8000/media/{{ wine.image }}"  alt="{{wine.name}}">
+					</a>
 					<div class="card-body">
 						<!-- /.card-body -->
-						<h4 class="card-title">
-							<a href="{% url 'wine_detail' wine.pk %}"> {{wine.name}} </a>
-						</h4>
-						<h5 style="text-decoration:indigo; text-decoration: indigo;">{{ wine.price }} lei</h5>
-						<p class="card-text">
-							{% if wine.description|length > 100 %}
-						<p>{{wine.description|slice:100}} 
-							<a href="{% url 'wine_detail' wine.pk %}">  ... mai multe detalii </a>
+						<h4 class="card-title" style="color:#254b68; font-size: 1.4rem;">
+							{% if wine.name|length > 22 %}
+						<p>{{wine.name|slice:22}} 
+							<a href="{% url 'wine_detail' wine.pk %}" style="color: #254b68;">... </a>
 						</p>
 						{% else %}
-						<p>{{wine.description}} </p>
+						<p>{{wine.name}} </p>
 						{% endif %}
+							
+						</h4>
+						
+						<p class="card-text" >
+							{% if wine.description|length > 92 %}
+						<p style="text-align: justify;">{{wine.description|slice:92}} 
+							<a href="{% url 'wine_detail' wine.pk %}" style="color: #254b68;">  ... mai multe detalii </a>
+						</p>
+						{% else %}
+						<p style="text-align: justify;">{{wine.description}} </p>
+						{% endif %}
+						<h5 style="color: #254b68; position: relative; top: 10px;">
+							<strong>{{ wine.price }} lei</strong>
+
+						</h5>
 					</div>
 					<!-- /.card-body -->
 					<div class="card-footer" style="background-color: #d6d6d6; position: relative;
@@ -50,7 +63,7 @@
 						<div style="color: green; padding-left: 6rem; padding-top: 0.5rem; font-size: 0.9rem;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
 							Stoc Disponibil
 						</div>
-						{% elif wine.quantity >= 3 %}
+						{% elif wine.quantity >= 2 %}
 						<div style="color: orange; padding-left: 6rem; padding-top: 0.5rem; font-size: 0.9rem;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
 							Stoc Limitat
 						</div>

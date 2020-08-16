@@ -86,10 +86,6 @@ def shopping_cart(request):
     return render(request, 'shopping_cart.html', {'total': total})
 
 
-def abc(request):
-    return render(request, 'abc.html')
-
-
 def shopping_cart_contact(request):
     a = Cart(request)
     total = 0
