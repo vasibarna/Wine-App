@@ -2,10 +2,13 @@
 from django.shortcuts import render, redirect
 from .models import Wine, PostImage
 from django.contrib.auth.decorators import login_required
-from cart.cart import Cart
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
 from django.views.generic import ListView, DetailView
 from django.http import HttpResponseRedirect
 from django.db.models import Sum
+from cart.cart import Cart
+from .forms import UserProfileForm, ExtendedUserCreationForm
 
 
 def welcome(request):
@@ -93,7 +96,7 @@ def shopping_cart_contact(request):
         total += float(value['price']) * value['quantity']
     return render(request, 'shopping_cart_contact.html', {'total': total})
 
-@login_required(login_url="/users/login")
+
 def cart_add(request, id):
     cart = Cart(request)
     product = Wine.objects.get(id=id)
@@ -101,8 +104,6 @@ def cart_add(request, id):
     return HttpResponseRedirect("/shopping_cart") 
 
 
-
-@login_required(login_url="/users/login")
 def item_clear(request, id):
     cart = Cart(request)
     product = Wine.objects.get(id=id)
@@ -110,29 +111,41 @@ def item_clear(request, id):
     return redirect("/shopping_cart")
 
 
-@login_required(login_url="/users/login")
-def item_increment(request, id):
-    cart = Cart(request)
-    product = Wine.objects.get(id=id)
-    cart.add(product=product)
-    return redirect("cart_detail")
-
-
-@login_required(login_url="/users/login")
-def item_decrement(request, id):
-    cart = Cart(request)
-    product = Wine.objects.get(id=id)
-    cart.decrement(product=product)
-    return redirect("cart_detail")
-
-
-@login_required(login_url="/users/login")
 def cart_clear(request):
     cart = Cart(request)
     cart.clear()
-    return redirect("shopping_cart")
+    return redirect("welcome")
 
 
 @login_required(login_url="/users/login")
 def cart_detail(request):
     return render(request, 'cart/cart_detail.html')
+
+
+def register(request):
+    if request.method == "POST":
+        form = ExtendedUserCreationForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
+        if form.is_valid() and profile_form.is_valid():
+            user = form.save()
+
+            profile = profile_form.save(commit=False)
+            profile.user = user
+
+            profile.save()
+
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('http://127.0.0.1:8000/')
+    else:
+        form = ExtendedUserCreationForm()
+        profile_form = UserProfileForm()
+
+    context = {'form' : form, 'profile_form' : profile_form}
+    return render(request, 'registration/register.html', context)
+
+
+def logout(request):
+    return render(request, 'registration/logout.html')

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<
+<div id="page-container">
+    <div id="content-wrap">
+        <div id="content" style="background-color: #fffeed;">
+            <div class="container">
+                <div class="col-lg-12" style="padding-top: 1.5rem;">
+                    <h3>Pagina inregistrare</h3>
+                    <br>
+                
+                <form style="padding-bottom: 2rem;" method="post" action="{% url 'register' %}">
+                    {% csrf_token %}
+
+                    {% if form.errors %}
+                    <p> Datele introduse sunt incorecte</p>
+                    {% endif %}
+                    
+                    {{ form.as_p }}
+
+                   
+                    {{ profile_form.as_p }}
+
+                    
+
+                    <input type="submit" value="Register">
+        
+                </form>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+{% block footer_custom %}
+<footer id="footer">
+<div class="card-footer text-muted text-center" style="position: sticky;
+bottom: 0;">
+<a href="/">
+<img src="{% static 'logo.jpg' %}" style="width:100px;height:auto;" alt="logo.jpg">
+</a>
+<a class="text-muted" style="padding-left:3rem" href="#">Contact</a>
+<a class="text-muted" style="padding-left:3rem" href="https://www.facebook.com/vasi.barna.5">Facebook</a>
+<a class="text-muted" style="padding-left:3rem" href="https://www.linkedin.com/in/vasile-barna-96744474">LinkedIn</a>
+<a class="text-muted" style="padding-left:3rem" href="https://github.com/vasibarna">GitHub</a><br><br>
+© Vasile Barna 2020. All rights reserved.
+</div>
+</footer>
+{% endblock %}

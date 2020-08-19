@@ -2,6 +2,7 @@ from django.db import models
 from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length = 30)
@@ -43,6 +44,17 @@ class PostImage(models.Model):
 
     def __str__(self):
         return f'Pictures for: <<{self.wine}>>'
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
+    city = models.CharField(max_length=110)
+    street = models.CharField(max_length=110)
+    number = models.CharField(max_length=110)
+    phone_number = models.CharField(max_length=110)
+
+    def __str__(self):
+        return self.user.username
 
 
 

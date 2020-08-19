@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div id="page-container">
+	<div id="content-wrap">
+		<div id="content" style="background-color: #fffeed;">
+			<div class="container" style="padding-top: 5rem;">
+				{% if user.is_authenticated %}
+				<h3>Sunteti logat cu username-ul: {{ user.username }}! </h3>
+				<br>
+				<p>
+					<div class="form-row">
+						<div class="col-md-4 mb-3">
+							<label for="validationDefault01">Nume</label>
+							<input type="text" class="form-control" id="validationDefault01" placeholder="Nume" value={{user.first_name}} required>
+						</div>
+						<div class="col-md-4 mb-3">
+							<label for="validationDefault02">Prenume</label>
+							<input type="text" class="form-control" id="validationDefault02" placeholder="Prenume" value={{user.last_name}}  required>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-md-3 mb-3">
+							<label for="validationDefault03">Oras</label>
+							<input type="text" class="form-control" id="validationDefault03" placeholder="Oras" value={{user.userprofile.city}} required>
+						</div>
+						<div class="col-md-3 mb-3">
+							<label for="validationDefault03">Strada</label>
+							<input type="text" class="form-control" id="validationDefault03" placeholder="Strada" value={{user.userprofile.street}} required>
+						</div>
+						<div class="col-md-3 mb-3">
+							<label for="validationDefault04">Numar</label>
+							<input type="text" class="form-control" id="validationDefault04" placeholder="Numar" value={{user.userprofile.number}} required>
+						</div>
+						<div class="col-md-3 mb-3">
+							<label for="validationDefault05">Telefon</label>
+							<input type="text" class="form-control" id="validationDefault05" placeholder="Telefon" value={{user.userprofile.phone_number}} required>
+						</div>
+					</div>
+				</p>
+				{% else %}
+				<p>You are not logged in</p>
+				<a href="{% url 'login' %}">Login</a>
+                {% endif %}
+                <div class="col-md-3 mb-3">
+                    <a class="btn btn-primary" href="{% url 'welcome' %}" role="button">Pagina de inceput</a>
+                    <a class="btn btn-danger" href="{% url 'logout' %}" role="button">Logout</a>
+                </div>
+            </div>
+            
+		</div>
+		
+	</div>
+</div>
+</div>
+{% endblock %}
+{% block footer_custom %}
+<footer id="footer">
+	<div class="card-footer text-muted text-center" style="position: fixed;
+		bottom: 0;">
+		<a href="/">
+		<img src="{% static 'logo.jpg' %}" style="width:100px;height:auto;" alt="logo.jpg">
+		</a>
+		<a class="text-muted" style="padding-left:3rem" href="#">Contact</a>
+		<a class="text-muted" style="padding-left:3rem" href="https://www.facebook.com/vasi.barna.5">Facebook</a>
+		<a class="text-muted" style="padding-left:3rem" href="https://www.linkedin.com/in/vasile-barna-96744474">LinkedIn</a>
+		<a class="text-muted" style="padding-left:3rem" href="https://github.com/vasibarna">GitHub</a><br><br>
+		© Vasile Barna 2020. All rights reserved.
+	</div>
+</footer>
+{% endblock %}
